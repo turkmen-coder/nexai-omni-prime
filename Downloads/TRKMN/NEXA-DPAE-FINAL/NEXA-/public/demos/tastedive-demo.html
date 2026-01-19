@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXAI - İçerik Keşif Platformu</title>
+    <link rel="stylesheet" href="/static/tastedive-theme.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--td-font-sans);
+            background-color: #f8f9fa;
+            color: var(--td-gray-900);
+        }
+        
+        /* Video Player Styles */
+        .td-video-player {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,0,0,0.8), rgba(0,0,0,0.6));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .td-play-button {
+            width: 80px;
+            height: 80px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--td-transition-smooth);
+            box-shadow: var(--td-shadow-xl);
+        }
+        
+        .td-play-button:hover {
+            transform: scale(1.1);
+            background-color: var(--td-white);
+        }
+        
+        .td-play-button::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 25px solid var(--td-blue-bright);
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            margin-left: 5px;
+        }
+        
+        /* Sample content images */
+        .td-sample-image {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        .td-hero-video-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"><rect fill="%23000" width="800" height="600"/><text x="400" y="300" font-family="Arial" font-size="48" fill="%23fff" text-anchor="middle" dominant-baseline="middle">ROBOT</text></svg>') center/cover;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="td-header">
+        <div class="td-header-container">
+            <a href="/" class="td-logo">
+                <span>🧠</span>
+                <span>NEXAI</span>
+            </a>
+            
+            <div class="td-search">
+                <input type="text" class="td-search-input" placeholder="Harika bir şeyler bul...">
+            </div>
+            
+            <div class="td-auth-buttons">
+                <a href="/account/signup" class="td-btn-auth">Kayıt Ol</a>
+                <a href="/account/signin" class="td-btn-auth">Giriş Yap</a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Category Navigation -->
+    <nav class="td-nav">
+        <div class="td-nav-container">
+            <a href="/music" class="td-nav-link">Müzik</a>
+            <a href="/movies" class="td-nav-link">Filmler</a>
+            <a href="/shows" class="td-nav-link active">Diziler</a>
+            <a href="/books" class="td-nav-link">Kitaplar</a>
+            <a href="/games" class="td-nav-link">Oyunlar</a>
+            <a href="/podcasts" class="td-nav-link">Podcast'ler</a>
+            <a href="/people" class="td-nav-link">Kişiler</a>
+            <a href="/places" class="td-nav-link">Yerler</a>
+            <a href="/brands" class="td-nav-link">Markalar</a>
+            <a href="/lists" class="td-nav-link">Listeler</a>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="td-hero">
+        <div class="td-hero-content">
+            <h1 class="td-hero-title">Mr. Robot</h1>
+            <div class="td-hero-meta">2015, 2019 • ⭐ 4.3/5</div>
+            <p class="td-hero-description">
+                Elliot, gündüzleri siber güvenlik mühendisi olarak çalışan, geceleri ise adalet savaşçısı hacker olan parlak bir içe dönük genç programcıdır. Aynı zamanda şizofreniye benzer garip bir durumdan muzdariptir...
+            </p>
+            
+            <div class="td-hero-actions">
+                <button class="td-btn td-btn-primary">Detayları Gör</button>
+                <button class="td-btn td-btn-secondary">Şimdi İzle</button>
+            </div>
+            
+            <!-- Stats Cards -->
+            <div class="td-stats">
+                <div class="td-stat-card">
+                    <div class="td-stat-icon">👍</div>
+                    <div class="td-stat-value">27.3k</div>
+                    <div class="td-stat-label">Beğeni</div>
+                </div>
+                <div class="td-stat-card">
+                    <div class="td-stat-icon">😐</div>
+                    <div class="td-stat-value">1.6k</div>
+                    <div class="td-stat-label">Orta</div>
+                </div>
+                <div class="td-stat-card">
+                    <div class="td-stat-icon">👎</div>
+                    <div class="td-stat-value">1.3k</div>
+                    <div class="td-stat-label">Beğenmedi</div>
+                </div>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="td-action-bar">
+                <button class="td-btn-action">
+                    <span>📋</span>
+                    <span>Listeye Kaydet</span>
+                </button>
+                <button class="td-btn-action">
+                    <span>✍️</span>
+                    <span>İnceleme Yaz</span>
+                </button>
+            </div>
+        </div>
+        
+        <div class="td-hero-media">
+            <div class="td-video-player">
+                <div class="td-hero-video-bg"></div>
+                <button class="td-play-button" aria-label="Videoyu oynat"></button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Similar Content Section -->
+    <section class="td-section">
+        <div class="td-section-header">
+            <h2 class="td-section-title">Benzer Diziler</h2>
+            <div class="td-filter">
+                <span class="td-filter-label">Filtrele:</span>
+                <select class="td-filter-select">
+                    <option>Tür</option>
+                    <option>Drama</option>
+                    <option>Bilim Kurgu</option>
+                    <option>Gerilim</option>
+                    <option>Suç</option>
+                </select>
+            </div>
+        </div>
+        
+        <p class="td-suggestion-text">
+            Eğer <strong>Mr. Robot</strong>'u sevdiyseniz, şunları da beğenebilirsiniz: 
+            <strong>The Blacklist</strong>, <strong>Quantico</strong>, ve <strong>Sense8</strong>
+        </p>
+        
+        <!-- Card Grid -->
+        <div class="td-grid">
+            <!-- Card 1: The Blacklist -->
+            <div class="td-card td-fade-in">
+                <div class="td-card-image-wrapper">
+                    <div class="td-sample-image" style="background: linear-gradient(135deg, #1a1a1a 0%, #8B0000 100%);">
+                        THE BLACKLIST
+                    </div>
+                    <div class="td-card-overlay">
+                        <div class="td-card-actions">
+                            <button class="td-card-action-btn like" title="Beğen">👍</button>
+                            <button class="td-card-action-btn meh" title="Orta">😐</button>
+                            <button class="td-card-action-btn dislike" title="Beğenme">👎</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="td-card-content">
+                    <span class="td-card-badge">DİZİLER</span>
+                    <h3 class="td-card-title">The Blacklist</h3>
+                    <div class="td-card-year">2013</div>
+                    <p class="td-card-description">
+                        Son derece artiküle, erudite ve zeki bir iş adamı ve beyin takımı lideri "Red" Reddington, 20 yılı aşkın süredir çeşitli ABD kolluk kuvvetlerinin "En Çok Arananlar Listesi"nde yer almaktadır.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Card 2: Quantico -->
+            <div class="td-card td-fade-in" style="animation-delay: 0.1s;">
+                <div class="td-card-image-wrapper">
+                    <div class="td-sample-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        QUANTICO
+                    </div>
+                    <div class="td-card-overlay">
+                        <div class="td-card-actions">
+                            <button class="td-card-action-btn like" title="Beğen">👍</button>
+                            <button class="td-card-action-btn meh" title="Orta">😐</button>
+                            <button class="td-card-action-btn dislike" title="Beğenme">👎</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="td-card-content">
+                    <span class="td-card-badge">DİZİLER</span>
+                    <h3 class="td-card-title">Quantico</h3>
+                    <div class="td-card-year">2015</div>
+                    <p class="td-card-description">
+                        Virginia'daki Quantico üssünde eğitim alan genç FBI ajanlarının hayatlarına bir bakış. İçlerinden birinin uyuyan terörist olduğundan şüphelenilmektedir.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Card 3: Sense8 -->
+            <div class="td-card td-fade-in" style="animation-delay: 0.2s;">
+                <div class="td-card-image-wrapper">
+                    <div class="td-sample-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                        SENSE8
+                    </div>
+                    <div class="td-card-overlay">
+                        <div class="td-card-actions">
+                            <button class="td-card-action-btn like" title="Beğen">👍</button>
+                            <button class="td-card-action-btn meh" title="Orta">😐</button>
+                            <button class="td-card-action-btn dislike" title="Beğenme">👎</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="td-card-content">
+                    <span class="td-card-badge">DİZİLER</span>
+                    <h3 class="td-card-title">Sense8</h3>
+                    <div class="td-card-year">2015</div>
+                    <p class="td-card-description">
+                        Sense8, sekiz yabancının hikayesini anlatıyor. Her biri farklı bir kültürden ve dünyanın farklı bir bölgesinden. Trajik bir ölümün ardından zihinsel ve duygusal olarak bağlı hale gelirler.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Card 4: Incorporated -->
+            <div class="td-card td-fade-in" style="animation-delay: 0.3s;">
+                <div class="td-card-image-wrapper">
+                    <div class="td-sample-image" style="background: linear-gradient(135deg, #434343 0%, #000000 100%);">
+                        INCORPORATED
+                    </div>
+                    <div class="td-card-overlay">
+                        <div class="td-card-actions">
+                            <button class="td-card-action-btn like" title="Beğen">👍</button>
+                            <button class="td-card-action-btn meh" title="Orta">😐</button>
+                            <button class="td-card-action-btn dislike" title="Beğenme">👎</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="td-card-content">
+                    <span class="td-card-badge">DİZİLER</span>
+                    <h3 class="td-card-title">Incorporated</h3>
+                    <div class="td-card-year">2016</div>
+                    <p class="td-card-description">
+                        Bir adam, sınırsız güce sahip gibi görünen dev bir şirketi engellemeye çalışır.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Card 5: Chance -->
+            <div class="td-card td-fade-in" style="animation-delay: 0.4s;">
+                <div class="td-card-image-wrapper">
+                    <div class="td-sample-image" style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);">
+                        CHANCE
+                    </div>
+                    <div class="td-card-overlay">
+                        <div class="td-card-actions">
+                            <button class="td-card-action-btn like" title="Beğen">👍</button>
+                            <button class="td-card-action-btn meh" title="Orta">😐</button>
+                            <button class="td-card-action-btn dislike" title="Beğenme">👎</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="td-card-content">
+                    <span class="td-card-badge">DİZİLER</span>
+                    <h3 class="td-card-title">Chance</h3>
+                    <div class="td-card-year">2016</div>
+                    <p class="td-card-description">
+                        Psikiyatrist Eldon Chance hakkında modern bir noir hikayesi. Orta yaşlı, karısı boşanmak istiyor ve mesleğinden yorulmuş durumda.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Card 6: Legion -->
+            <div class="td-card td-fade-in" style="animation-delay: 0.5s;">
+                <div class="td-card-image-wrapper">
+                    <div class="td-sample-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                        LEGION
+                    </div>
+                    <div class="td-card-overlay">
+                        <div class="td-card-actions">
+                            <button class="td-card-action-btn like" title="Beğen">👍</button>
+                            <button class="td-card-action-btn meh" title="Orta">😐</button>
+                            <button class="td-card-action-btn dislike" title="Beğenme">👎</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="td-card-content">
+                    <span class="td-card-badge">DİZİLER</span>
+                    <h3 class="td-card-title">Legion</h3>
+                    <div class="td-card-year">2017</div>
+                    <p class="td-card-description">
+                        Marvel Comics'e dayanan Legion, insandan daha fazlası olabilecek sorunlu genç adam David Haller'ın hikayesidir.
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Load More Button -->
+        <div class="td-text-center td-mt-8">
+            <button class="td-btn td-btn-primary" style="padding: var(--td-space-4) var(--td-space-8);">
+                Daha Fazla Göster
+            </button>
+        </div>
+    </section>
+    
+    <!-- Cross-category Section -->
+    <section class="td-section" style="background-color: var(--td-gray-100);">
+        <div class="td-section-header">
+            <h2 class="td-section-title">Kategoriler Arası Öneriler</h2>
+        </div>
+        
+        <p class="td-suggestion-text">
+            Eğer <strong>Mr. Robot</strong>'u sevdiyseniz, şu müzikleri de beğenebilirsiniz: 
+            <strong>Disturbed</strong>, <strong>Ozzy Osbourne</strong>, ve <strong>Pantera</strong>
+        </p>
+        
+        <div class="td-grid">
+            <!-- Music Card 1 -->
+            <div class="td-card td-scale-in">
+                <div class="td-card-image-wrapper">
+                    <div class="td-sample-image" style="background: linear-gradient(135deg, #ff0844 0%, #ffb199 100%);">
+                        🎵 DISTURBED
+                    </div>
+                    <div class="td-card-overlay">
+                        <div class="td-card-actions">
+                            <button class="td-card-action-btn like" title="Beğen">👍</button>
+                            <button class="td-card-action-btn meh" title="Orta">😐</button>
+                            <button class="td-card-action-btn dislike" title="Beğenme">👎</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="td-card-content">
+                    <span class="td-card-badge" style="background-color: var(--td-meh);">MÜZİK</span>
+                    <h3 class="td-card-title">Disturbed</h3>
+                    <div class="td-card-year">Heavy Metal</div>
+                    <p class="td-card-description">
+                        Amerikan heavy metal grubu. 1994'te Chicago'da kuruldu. Down with the Sickness şarkısıyla ünlüdür.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Music Card 2 -->
+            <div class="td-card td-scale-in" style="animation-delay: 0.1s;">
+                <div class="td-card-image-wrapper">
+                    <div class="td-sample-image" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
+                        🎵 OZZY
+                    </div>
+                    <div class="td-card-overlay">
+                        <div class="td-card-actions">
+                            <button class="td-card-action-btn like" title="Beğen">👍</button>
+                            <button class="td-card-action-btn meh" title="Orta">😐</button>
+                            <button class="td-card-action-btn dislike" title="Beğenme">👎</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="td-card-content">
+                    <span class="td-card-badge" style="background-color: var(--td-meh);">MÜZİK</span>
+                    <h3 class="td-card-title">Ozzy Osbourne</h3>
+                    <div class="td-card-year">Rock</div>
+                    <p class="td-card-description">
+                        İngiliz şarkıcı, söz yazarı ve televizyon kişiliği. Black Sabbath'ın solisti olarak ün kazandı.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Music Card 3 -->
+            <div class="td-card td-scale-in" style="animation-delay: 0.2s;">
+                <div class="td-card-image-wrapper">
+                    <div class="td-sample-image" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);">
+                        🎵 PANTERA
+                    </div>
+                    <div class="td-card-overlay">
+                        <div class="td-card-actions">
+                            <button class="td-card-action-btn like" title="Beğen">👍</button>
+                            <button class="td-card-action-btn meh" title="Orta">😐</button>
+                            <button class="td-card-action-btn dislike" title="Beğenme">👎</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="td-card-content">
+                    <span class="td-card-badge" style="background-color: var(--td-meh);">MÜZİK</span>
+                    <h3 class="td-card-title">Pantera</h3>
+                    <div class="td-card-year">Heavy Metal</div>
+                    <p class="td-card-description">
+                        Amerikan heavy metal grubu. Groove metal türünün öncülerinden biri olarak kabul edilir.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Music Card 4 -->
+            <div class="td-card td-scale-in" style="animation-delay: 0.3s;">
+                <div class="td-card-image-wrapper">
+                    <div class="td-sample-image" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);">
+                        🎵 KORN
+                    </div>
+                    <div class="td-card-overlay">
+                        <div class="td-card-actions">
+                            <button class="td-card-action-btn like" title="Beğen">👍</button>
+                            <button class="td-card-action-btn meh" title="Orta">😐</button>
+                            <button class="td-card-action-btn dislike" title="Beğenme">👎</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="td-card-content">
+                    <span class="td-card-badge" style="background-color: var(--td-meh);">MÜZİK</span>
+                    <h3 class="td-card-title">Korn</h3>
+                    <div class="td-card-year">Nu Metal</div>
+                    <p class="td-card-description">
+                        Amerikan nu metal grubu. Nu metal türünün öncülerinden ve en başarılı gruplarından biridir.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        // Simple interaction handlers
+        document.querySelectorAll('.td-card-action-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const action = btn.classList.contains('like') ? 'Beğenildi' : 
+                              btn.classList.contains('meh') ? 'Orta' : 'Beğenilmedi';
+                console.log(action);
+                
+                // Visual feedback
+                btn.style.transform = 'scale(1.2)';
+                setTimeout(() => {
+                    btn.style.transform = '';
+                }, 200);
+            });
+        });
+        
+        // Card click handler
+        document.querySelectorAll('.td-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const title = card.querySelector('.td-card-title').textContent;
+                console.log('Kart tıklandı:', title);
+            });
+        });
+        
+        // Play button
+        document.querySelector('.td-play-button')?.addEventListener('click', () => {
+            alert('Video oynatılıyor...');
+        });
+    </script>
+</body>
+</html>

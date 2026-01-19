@@ -1,0 +1,9 @@
+GOOGLE_CLIENT_ID=218187655180-tcr5lknd7e1qg0q5cdibs8inehf82apo.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET= 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
+GITHUB_CLIENT_ID=your-github-client-id
+GITHUB_CLIENT_SECRET=your-github-client-secret
+APPLE_CLIENT_ID=your-apple-client-id
+APPLE_CLIENT_SECRET=your-apple-client-secret
+OPENROUTER_API_KEY=your-openrouter-api-key
+GEMINI_API_KEY= AIzaSyC-8_T22M5EM0_6jfTxG_E7GqDUyUf7F3E
+JWT_SECRET=replace-with-32+-char-random
