@@ -1,3 +1,6 @@
+<img width="2752" height="1536" alt="image" src="https://github.com/user-attachments/assets/2df80438-eb5e-46b3-936e-c3ceaa821c77" />
+
+
 # NEXAI: OMNI-PRIME v5.0
 
 **Digital Soul Curator**
