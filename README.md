@@ -1,39 +1,39 @@
 # NEXAI: OMNI-PRIME v5.0
 
-**Dijital Ruh Küratörü | Digital Soul Curator**
+**Digital Soul Curator**
 
-Kültürel bağlam duyarlı, yapay zeka destekli psikolojik analiz ve içerik kürasyon sistemi.
+Cultural context-aware, AI-powered psychological analysis and content curation system.
 
-## Özellikler
+## Features
 
-- **Psikolojik Analiz**: Big Five, MBTI, Enneagram, Jung Arketipleri
-- **BART Risk Testi**: Balon Analojik Risk Görevi
-- **PsychoCore-X/ULTRA**: Gelişmiş ve derin psikolojik analiz motorları
-- **DPAE**: Bütünleşik Benlik Matrisi
-- **İçerik Kürasyonu**: Kişiselleştirilmiş film, kitap, müzik önerileri
-- **Çoklu Kültür Desteği**: Batı, Doğu, Afrika çerçeveleri
-- **Çoklu Dil**: Türkçe ve İngilizce arayüz
+- **Psychological Analysis**: Big Five, MBTI, Enneagram, Jung Archetypes
+- **BART Risk Test**: Balloon Analogue Risk Task
+- **PsychoCore-X/ULTRA**: Advanced and deep psychological analysis engines
+- **DPAE**: Integrated Self Matrix
+- **Content Curation**: Personalized movie, book, music recommendations
+- **Multi-Cultural Support**: Western, Eastern, African frameworks
+- **Multi-Language**: Turkish and English interface
 
-## Teknoloji Stack
+## Technology Stack
 
-| Kategori | Teknoloji |
+| Category | Technology |
 |----------|-----------|
 | Backend | Hono + Cloudflare Workers |
 | Frontend | Vanilla JavaScript |
-| AI Engine | Ollama (Yerel) / Google Gemini / OpenRouter |
+| AI Engine | Ollama (Local) / Google Gemini / OpenRouter |
 | Build | Vite |
 | Deploy | Cloudflare Pages |
 
-## Kurulum
+## Installation
 
-### Yerel Geliştirme (Ollama ile)
+### Local Development (with Ollama)
 
 ```bash
-# Ollama kurulumu (https://ollama.com)
+# Install Ollama (https://ollama.com)
 ollama pull llama3.2
 ollama serve
 
-# Proje kurulumu
+# Project setup
 git clone https://github.com/turkmen-coder/NEXA-.git
 cd NEXA-
 npm install
@@ -47,7 +47,7 @@ npm run build
 npm run deploy
 ```
 
-## Proje Yapısı
+## Project Structure
 
 ```
 NEXA-/
@@ -79,51 +79,51 @@ NEXA-/
 
 ## API Endpoints
 
-| Method | Endpoint | Açıklama |
-|--------|----------|----------|
-| GET | `/api/health` | Sistem durumu |
-| POST | `/api/protected/analyze` | Mesaj analizi |
-| POST | `/api/protected/profile` | Psikolojik profil |
-| POST | `/api/protected/psychocore-x` | PsychoCore-X analizi |
-| POST | `/api/protected/psychocore-ultra` | PsychoCore-ULTRA analizi |
-| POST | `/api/protected/dpae` | DPAE bütünleşik analiz |
-| POST | `/api/protected/unified-analysis` | Tam 5 katmanlı analiz |
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/health` | System status |
+| POST | `/api/protected/analyze` | Message analysis |
+| POST | `/api/protected/profile` | Psychological profile |
+| POST | `/api/protected/psychocore-x` | PsychoCore-X analysis |
+| POST | `/api/protected/psychocore-ultra` | PsychoCore-ULTRA analysis |
+| POST | `/api/protected/dpae` | DPAE integrated analysis |
+| POST | `/api/protected/unified-analysis` | Full 5-layer analysis |
 
 ## Scripts
 
 ```bash
-npm run dev      # Geliştirme sunucusu
+npm run dev      # Development server
 npm run build    # Production build
 npm run preview  # Local preview
 npm run deploy   # Cloudflare deploy
 ```
 
-## Dokümantasyon
+## Documentation
 
-Detaylı dokümantasyon için `docs/` klasörüne bakın:
+For detailed documentation, see the `docs/` folder:
 
-### Başlangıç
-- [QUICKSTART.md](docs/QUICKSTART.md) - Hızlı başlangıç rehberi
-- [OLLAMA_SETUP.md](docs/OLLAMA_SETUP.md) - Ollama kurulum ve yapılandırma
+### Getting Started
+- [QUICKSTART.md](docs/QUICKSTART.md) - Quick start guide
+- [OLLAMA_SETUP.md](docs/OLLAMA_SETUP.md) - Ollama setup and configuration
 
-### Teknik Dokümantasyon
+### Technical Documentation
 - [NEXAI_UNIFIED_ENGINE_DOCS.md](docs/NEXAI_UNIFIED_ENGINE_DOCS.md) - Unified Engine API
-- [DPAE_DOCUMENTATION.md](docs/DPAE_DOCUMENTATION.md) - DPAE analiz sistemi
-- [INTEGRATION_SUMMARY.md](docs/INTEGRATION_SUMMARY.md) - Sistem entegrasyonu
-- [PERFORMANCE_OPTIMIZATION.md](docs/PERFORMANCE_OPTIMIZATION.md) - Performans iyileştirmeleri
+- [DPAE_DOCUMENTATION.md](docs/DPAE_DOCUMENTATION.md) - DPAE analysis system
+- [INTEGRATION_SUMMARY.md](docs/INTEGRATION_SUMMARY.md) - System integration
+- [PERFORMANCE_OPTIMIZATION.md](docs/PERFORMANCE_OPTIMIZATION.md) - Performance improvements
 
-### Proje Bilgisi
-- [PROJECT_SUMMARY.md](docs/PROJECT_SUMMARY.md) - Proje özeti
-- [FEATURES_COMPLETE.md](docs/FEATURES_COMPLETE.md) - Tamamlanan özellikler
-- [CHANGELOG.md](docs/CHANGELOG.md) - Versiyon geçmişi
-- [DPAE_DOCUMENTATION.md](docs/DPAE_DOCUMENTATION.md) - DPAE motoru
-- [PSYCHOCORE_INTEGRATION.md](docs/PSYCHOCORE_INTEGRATION.md) - PsychoCore motorları
-- [FEATURES_COMPLETE.md](docs/FEATURES_COMPLETE.md) - Tam özellik listesi
+### Project Information
+- [PROJECT_SUMMARY.md](docs/PROJECT_SUMMARY.md) - Project summary
+- [FEATURES_COMPLETE.md](docs/FEATURES_COMPLETE.md) - Completed features
+- [CHANGELOG.md](docs/CHANGELOG.md) - Version history
+- [DPAE_DOCUMENTATION.md](docs/DPAE_DOCUMENTATION.md) - DPAE engine
+- [PSYCHOCORE_INTEGRATION.md](docs/PSYCHOCORE_INTEGRATION.md) - PsychoCore engines
+- [FEATURES_COMPLETE.md](docs/FEATURES_COMPLETE.md) - Complete feature list
 
-## Lisans
+## License
 
 MIT
 
-## Geliştirici
+## Developer
 
 **turkmen-coder** - [GitHub](https://github.com/turkmen-coder)
