@@ -37,8 +37,8 @@ ollama pull llama3.2
 ollama serve
 
 # Project setup
-git clone https://github.com/turkmen-coder/NEXA-.git
-cd NEXA-
+git clone https://github.com/turkmen-coder/nexai-omni-prime.git
+cd nexai-omni-prime
 npm install
 npm run dev
 ```
@@ -53,7 +53,7 @@ npm run deploy
 ## Project Structure
 
 ```
-NEXA-/
+nexai-omni-prime/
 ├── src/
 │   ├── index.tsx                    # Backend API (Hono + Cloudflare Workers)
 │   ├── renderer.tsx                 # Frontend renderer
