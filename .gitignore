@@ -55,3 +55,4 @@ doc_test.json
 # Coverage
 coverage/
 .nyc_output/
+core

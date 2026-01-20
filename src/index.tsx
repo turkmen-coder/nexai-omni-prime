@@ -988,7 +988,7 @@ async function callOpenRouter(apiKey: string, model: string, messages: any[], te
 async function callAI(env: Bindings, messages: any[], temperature: number = 0.3, options: any = {}) {
   // Try Gemini first (Cloud)
   const geminiKey = env.GEMINI_API_KEY
-  if (geminiKey && geminiKey !== 'your_gemini_api_key_here') {
+  if (geminiKey && geminiKey !== 'your_gemini_api_key_here' && !geminiKey.includes('demo')) {
     const geminiModel = options.thinking ? AI_CONFIG.GEMINI.models.thinking : AI_CONFIG.GEMINI.models.pro
     const result = await callGemini(geminiKey, geminiModel, messages, temperature, options)
     if (result?.content) return { content: result.content, model: `gemini/${result.model}`, source: 'gemini' }
@@ -1003,7 +1003,7 @@ async function callAI(env: Bindings, messages: any[], temperature: number = 0.3,
 
   // Fallback to OpenRouter
   const openRouterKey = env.OPENROUTER_API_KEY
-  if (openRouterKey && openRouterKey !== 'your_openrouter_api_key_here') {
+  if (openRouterKey && openRouterKey !== 'your_openrouter_api_key_here' && !openRouterKey.includes('demo')) {
     for (const orModel of AI_CONFIG.FALLBACK.models) {
       const result = await callOpenRouter(openRouterKey, orModel, messages, temperature, options)
       if (result?.content) return { content: result.content, model: orModel, source: 'openrouter' }
@@ -1012,7 +1012,77 @@ async function callAI(env: Bindings, messages: any[], temperature: number = 0.3,
     console.warn('OpenRouter API key is missing or default. Skipping fallback.')
   }
 
-  return { content: null, model: null, source: 'all_failed' }
+  // DEMO MODE: Return mock AI response when all AI services fail
+  console.log('🎭 DEMO MODE: Generating mock AI response')
+  const demoResponse = generateDemoResponse(messages, options)
+  return { content: demoResponse, model: 'demo-mode', source: 'demo' }
+}
+
+// Demo response generator for when AI services are unavailable
+function generateDemoResponse(messages: any[], options: any = {}): string {
+  const userMessage = messages.find(m => m.role === 'user')?.content || ''
+  const isAnalysis = userMessage.toLowerCase().includes('analiz') || userMessage.toLowerCase().includes('analysis')
+  const isSynthesis = userMessage.toLowerCase().includes('sentez') || userMessage.toLowerCase().includes('synthesis')
+  const isProfile = userMessage.toLowerCase().includes('profil') || userMessage.toLowerCase().includes('profile')
+  
+  if (isSynthesis || isProfile) {
+    return JSON.stringify({
+      summary: "🎭 DEMO MOD: Bu bir örnek psikolojik profil analizidir. Gerçek analiz için AI API yapılandırması gereklidir.",
+      personality: {
+        bigFive: { openness: 75, conscientiousness: 68, extraversion: 62, agreeableness: 71, neuroticism: 45 },
+        mbti: "INFJ",
+        enneagram: "4w5",
+        dominantTraits: ["Yaratıcı", "Empatik", "Analitik", "İçe dönük"]
+      },
+      cognitive: {
+        iqEstimate: "Ortalamanın üzeri (115-125)",
+        thinkingStyle: "Sezgisel-Analitik",
+        learningPreference: "Görsel-Kavramsal",
+        cognitiveStrengths: ["Desen tanıma", "Soyut düşünme", "Yaratıcı problem çözme"]
+      },
+      emotional: {
+        emotionalIntelligence: 78,
+        primaryEmotions: ["Merak", "Nostalji", "Huzur arayışı"],
+        copingMechanisms: ["İçselleştirme", "Yaratıcı ifade", "Analitik mesafe"]
+      },
+      jungArchetype: {
+        primary: "Yaratıcı (Creator)",
+        secondary: "Bilge (Sage)",
+        shadow: "Yetim (Orphan)"
+      },
+      recommendations: [
+        "Yaratıcı projelerle iç dünyanızı ifade edin",
+        "Sosyal bağlantılarınızı güçlendirmek için küçük gruplarla etkileşim kurun",
+        "Analitik yeteneklerinizi pratik hedeflere yönlendirin"
+      ],
+      riskFactors: {
+        level: "Düşük",
+        areas: ["Aşırı içe dönüklük riski", "Mükemmeliyetçilik eğilimi"]
+      },
+      demoMode: true,
+      notice: "⚠️ Bu sonuçlar demo amaçlıdır. Gerçek AI analizi için GEMINI_API_KEY veya OPENROUTER_API_KEY yapılandırın."
+    }, null, 2)
+  }
+  
+  if (isAnalysis) {
+    return JSON.stringify({
+      analysis: "🎭 DEMO MOD: Analiz başarıyla simüle edildi.",
+      insights: [
+        "Kullanıcı yaratıcı ve düşünceli bir yapıya sahip görünüyor",
+        "İletişim tarzı açık ve ifade edici",
+        "Duygusal derinlik ve içgörü kapasitesi yüksek"
+      ],
+      confidence: 0.85,
+      demoMode: true
+    }, null, 2)
+  }
+  
+  return JSON.stringify({
+    response: "🎭 DEMO MOD: AI servisleri şu anda kullanılamıyor. Bu bir örnek yanıttır.",
+    status: "demo",
+    recommendation: "Gerçek AI analizi için .dev.vars dosyasında geçerli API anahtarları yapılandırın.",
+    demoMode: true
+  }, null, 2)
 }
 
 function safeParseJSON(content: string, defaultValue: any = {}) {
@@ -2379,6 +2449,7 @@ app.get('/', (c) => {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NEXAI: OMNI-PRIME v5.0 | Dijital Ruh Küratörü</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net; img-src 'self' data: https:; connect-src 'self' https://generativelanguage.googleapis.com https://openrouter.ai;">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
